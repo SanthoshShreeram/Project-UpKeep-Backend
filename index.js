@@ -6,8 +6,10 @@ const adminRoutes = require("./routes/admin");
 const emergencyRoutes = require("./routes/emergency.js");
 const scheduleRoutes = require("./routes/schedule.js");
 const serviceCenterRoutes = require("./routes/nearbyservice.js");
-const MONGODBURL = require("./config");
-
+const dotenv = require("dotenv");
+dotenv.config();
+const MONGODBURL = process.env.MONGODBURL;
+const PORT = process.env.PORT;
 const cors = require("cors");
 
 const app = express();
@@ -26,8 +28,8 @@ app.use("/api/emergency", emergencyRoutes);
 app.use("/api/schedule", scheduleRoutes);
 app.use("/api/service-center", serviceCenterRoutes);
 
-app.listen(3000, "0.0.0.0", () => {
-  console.log("Server running on port 3000");
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server running on port ${PORT}`);
 });
 
 app.get("/", (req, res) => {
@@ -330,10 +332,14 @@ app.get("/delete_user", (req, res) => {
 });
 //DB connection
 mongoose
-  .connect(MONGODBURL)
+  .connect(
+    MONGODBURL
+  )
   .then(() => {
     console.log("MongoDB connected successfully!");
   })
-  .catch(() => {
+  .catch((error) => {
+    console.log(error);
+    
     console.log("Connection failed");
   });
