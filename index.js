@@ -33,7 +33,7 @@ app.listen(PORT, "0.0.0.0", () => {
 });
 
 app.get("/", (req, res) => {
-  res.send("Hello from node");
+  res.send("Hello from node backend of upkeep");
 });
 app.get("/privacy_policy", (req, res) => {
   res.send(`<!DOCTYPE html>
